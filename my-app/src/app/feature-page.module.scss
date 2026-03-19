@@ -1,0 +1,31 @@
+.page {
+  min-height: 100vh;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 1rem;
+}
+
+.topline {
+  margin-bottom: 1rem;
+
+  h1 {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    margin-bottom: 0.4rem;
+  }
+
+  p {
+    color: var(--text-muted);
+  }
+
+  a {
+    color: var(--accent);
+    font-weight: 600;
+  }
+}
