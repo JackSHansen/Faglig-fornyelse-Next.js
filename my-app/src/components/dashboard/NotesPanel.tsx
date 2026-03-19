@@ -66,7 +66,7 @@ export function NotesPanel({ compact = false }: NotesPanelProps) {
           placeholder="Skriv en note..."
           maxLength={140}
         />
-        <button type="submit">Tilfoj</button>
+        <button type="submit">Tilføj</button>
       </form>
 
       <ul className="list">

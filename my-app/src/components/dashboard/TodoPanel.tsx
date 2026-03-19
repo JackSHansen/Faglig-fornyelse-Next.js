@@ -75,7 +75,7 @@ export function TodoPanel({ compact = false }: TodoPanelProps) {
           placeholder="Ny opgave..."
           maxLength={120}
         />
-        <button type="submit">Tilfoj</button>
+        <button type="submit">Tilføj</button>
       </form>
 
       <ul className="list">

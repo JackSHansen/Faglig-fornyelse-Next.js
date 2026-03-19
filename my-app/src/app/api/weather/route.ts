@@ -25,8 +25,8 @@ function weatherCodeToText(code: number): string {
     1: "Let skyet",
     2: "Delvist skyet",
     3: "Overskyet",
-    45: "Taage",
-    48: "Rimtaage",
+    45: "Tåge",
+    48: "Rimtåge",
     51: "Let regn",
     53: "Regn",
     55: "Kraftig regn",
@@ -88,7 +88,7 @@ export async function GET(request: NextRequest) {
 
     if (!forecastData.current) {
       return NextResponse.json(
-        { error: "Vejrdata var ikke tilgaengelige." },
+        { error: "Vejrdata var ikke tilgængelige." },
         { status: 502 },
       );
     }

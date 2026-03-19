@@ -37,6 +37,7 @@ function reorderWidgets(order: WidgetId[], fromId: WidgetId, toId: WidgetId): Wi
 }
 
 export function DashboardClient() {
+  const [isHydrated, setIsHydrated] = useState(false);
   const [theme, setTheme] = useState<Theme>("light");
   const [now, setNow] = useState(new Date());
   const [widgetOrder, setWidgetOrder] = useState<WidgetId[]>(DEFAULT_ORDER);
@@ -46,6 +47,10 @@ export function DashboardClient() {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [weatherError, setWeatherError] = useState<string | null>(null);
   const [loadingWeather, setLoadingWeather] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
   useEffect(() => {
     const tick = window.setInterval(() => setNow(new Date()), 1000);
@@ -122,26 +127,28 @@ export function DashboardClient() {
           <header>
             <h2>Dato og tid</h2>
           </header>
-          <p className={styles.time}>{now.toLocaleTimeString("da-DK")}</p>
-          <p className={styles.date}>{now.toLocaleDateString("da-DK", { dateStyle: "full" })}</p>
+          <p className={styles.time}>{isHydrated ? now.toLocaleTimeString("da-DK") : "--:--:--"}</p>
+          <p className={styles.date}>
+            {isHydrated ? now.toLocaleDateString("da-DK", { dateStyle: "full" }) : "Indlæser dato..."}
+          </p>
         </article>
       ),
       notes: (
         <article className={styles.widget}>
           <header>
             <h2>Noter</h2>
-            <Link href="/notes">Aaben side</Link>
+            <Link href="/notes">Åben side</Link>
           </header>
-          <NotesPanel compact />
+          {isHydrated ? <NotesPanel compact /> : <p className={styles.placeholder}>Indlæser noter...</p>}
         </article>
       ),
       todo: (
         <article className={styles.widget}>
           <header>
             <h2>To-do</h2>
-            <Link href="/tasks">Aaben side</Link>
+            <Link href="/tasks">Åben side</Link>
           </header>
-          <TodoPanel compact />
+          {isHydrated ? <TodoPanel compact /> : <p className={styles.placeholder}>Indlæser opgaver...</p>}
         </article>
       ),
       weather: (
@@ -159,10 +166,10 @@ export function DashboardClient() {
             <input
               value={cityQuery}
               onChange={(event) => setCityQuery(event.target.value)}
-              placeholder="Soeg efter by"
+              placeholder="Søg efter by"
             />
             <button type="submit" disabled={loadingWeather}>
-              {loadingWeather ? "Henter..." : "Soeg"}
+              {loadingWeather ? "Henter..." : "Søg"}
             </button>
           </form>
 
@@ -181,7 +188,7 @@ export function DashboardClient() {
         </article>
       ),
     }),
-    [cityQuery, fetchWeather, loadingWeather, now, weather, weatherError],
+    [cityQuery, fetchWeather, isHydrated, loadingWeather, now, weather, weatherError],
   );
 
   return (
@@ -191,7 +198,7 @@ export function DashboardClient() {
           <p className={styles.kicker}>Personligt Dashboard</p>
           <h1>Dit daglige overblik i en samlet app</h1>
           <p>
-            Traek widgets rundt for at tilpasse layoutet. Data gemmes lokalt, saa din opsaetning bliver husket.
+            Træk widgets rundt for at tilpasse layoutet. Data gemmes lokalt, så din opsætning bliver husket.
           </p>
         </div>
         <button
