@@ -1,7 +1,4 @@
 # Personligt Dashboard - Kodedokumentation
-
-Denne README er kodedokumentation for projektet i denne mappe. Den er adskilt fra README i roden, som fortsat kan bruges som opgavebeskrivelse.
-
 ## Oversigt
 
 Projektet er en Next.js app (App Router) med et personligt dashboard, hvor brugeren kan:
